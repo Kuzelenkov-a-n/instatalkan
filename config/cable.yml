@@ -1,0 +1,10 @@
+development:
+  adapter: async
+
+test:
+  adapter: async
+
+production:
+  adapter: redis
+  url: <%= Rails.application.secrets[:redistogo_url] %>
+  channel_prefix: instatalk_production
