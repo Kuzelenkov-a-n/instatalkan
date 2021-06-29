@@ -23,6 +23,6 @@ class RoomsController < ApplicationController
   end
 
   def set_users
-    @users = User.where(online: true)
+    @users = User.online
   end
 end
