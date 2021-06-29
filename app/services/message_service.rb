@@ -17,13 +17,11 @@ class MessageService
   end
 
   def broadcast_message
-    ActionCable.server.broadcast "room_channel_#{@room.id}",
-      message: render_message
+    ActionCable.server.broadcast "room_channel_#{@room.id}", message: render_message
   end
 
   def render_message
-    ApplicationController.renderer.render(partial: 'messages/message', locals: {
-      message: @message
-    })
+    ApplicationController.renderer.render(partial: 'messages/message',
+                                          locals: { message: @message })
   end
 end

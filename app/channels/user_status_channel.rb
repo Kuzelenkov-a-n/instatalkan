@@ -16,7 +16,7 @@ class UserStatusChannel < ApplicationCable::Channel
   end
 
   def render_users_list
-    ApplicationController.renderer.render(
-      partial: 'users/user', locals: { users: User.where(online: true) })
+    ApplicationController.renderer.render(partial: 'users/user',
+                                          locals: { users: User.where(online: true) })
   end
 end
