@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: [:show]
+  before_action :set_users, only: %i[index show]
 
   def index
     @rooms = Room.all
@@ -19,5 +20,9 @@ class RoomsController < ApplicationController
 
   def set_room
     @room = Room.find_by(token: params[:token])
+  end
+
+  def set_users
+    @users = User.where(online: true)
   end
 end

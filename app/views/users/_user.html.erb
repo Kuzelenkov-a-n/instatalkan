@@ -1,0 +1,8 @@
+<ul>
+  <% users.each do |user| %>
+    <li>
+      <%= user.nickname %>
+      <%= image_tag 'green_dot.png', class: 'user-image', name: "#{user.nickname}-status" %>
+    </li>
+  <% end %>
+</ul>
