@@ -7,16 +7,12 @@ class UserStatusChannel < ApplicationCable::Channel
 
   def unsubscribed
     current_user.update(online: false)
+    online_users
   end
 
   private
 
   def online_users
-    ActionCable.server.broadcast 'user_status_channel', users: render_users_list
-  end
-
-  def render_users_list
-    ApplicationController.renderer.render(partial: 'users/user',
-                                          locals: { users: User.online })
+    ActionCable.server.broadcast 'user_status_channel', user: current_user
   end
 end

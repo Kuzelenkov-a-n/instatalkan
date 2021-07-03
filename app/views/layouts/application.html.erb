@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Instatalk</title>
@@ -13,23 +13,21 @@
 <div class="container">
   <div class="row justify-content-md-start">
     <div class="col-md-8">
-      <div class="card text-center mt-4 mb-4">
-        <div class="card-body">
-          Welcome to Instatalk, <b><%= current_user.nickname %></b>!
-        </div>
-      </div>
 
       <%= yield %>
-    </div>
-    <div class="col-md-4 mt-10">
-      <div class="card text-center mt-4 mb-4">
-        <div class="card-body">
-          <h1>Online:</h1>
-          <div id="users-list">
-            <%= render 'users/user', users: @users %>
+
+      <% user = User.where(id: cookies.signed[:user_id]).first %>
+      <% if user.present? %>
+        <div class="col-md-4 mt-10">
+          <div class="card text-center mt-4 mb-4">
+            <div class="card-body">
+              <h1>Online:</h1>
+              <div id="users-list">
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
