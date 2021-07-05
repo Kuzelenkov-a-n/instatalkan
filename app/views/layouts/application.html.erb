@@ -11,24 +11,21 @@
 
 <body>
 <div class="container">
-  <div class="row justify-content-md-start">
+  <div class="row justify-content-md-center">
     <div class="col-md-8">
-
       <%= yield %>
-
-      <% user = User.where(id: cookies.signed[:user_id]).first %>
-      <% if user.present? %>
-        <div class="col-md-4 mt-10">
-          <div class="card text-center mt-4 mb-4">
-            <div class="card-body">
-              <h1>Online:</h1>
-              <div id="users-list">
-              </div>
+    </div>
+    <% unless current_user.online %>
+      <div class="col-md-8">
+        <div class="card text-center mt-4 mb-4">
+          <div class="card-body">
+            <h1>Online:</h1>
+            <div id="users-list">
             </div>
           </div>
         </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   </div>
 </div>
 </body>
