@@ -4,4 +4,4 @@ jQuery(document).on 'turbolinks:load', ->
     received: (data) ->
       $('#users-list').empty()
       $('#users-list').append(data['users'].map (i) ->
-        '<img src="<%= asset_path('green_dot.png') %>" class="user-image"> ' + i + ' ' + '</br>')
+        '<img src="<%= asset_path('green_dot.png') %>" class="user-image"> ' + i.nickname + ' ' + '</br>')

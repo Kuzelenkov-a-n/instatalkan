@@ -2,13 +2,13 @@
 
 <div class="card text-center mt-4 mb-4">
   <div class="card-body">
-    Welcome to Instatalk, <b><%= current_user.nickname %></b>!
+    Добро пожаловать в Instatalkan, <b><%= current_user.nickname %></b>!
     <%= link_to 'Удалить аккаунт', user_path(current_user.id), class: 'button btn btn-warning',
                 method: :delete, data: { confirm: 'Вы уверены, что хотите удалить свой аккаунт?' } %>
   </div>
 </div>
 
-<h1>Rooms</h1>
+<h1>Комнаты</h1>
 
 <ul class="mt-4 list-unstyled">
   <%= render @rooms %>

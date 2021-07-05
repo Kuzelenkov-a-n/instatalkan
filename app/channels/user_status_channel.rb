@@ -13,6 +13,6 @@ class UserStatusChannel < ApplicationCable::Channel
   private
 
   def online_users
-    ActionCable.server.broadcast 'user_status_channel', users: User.online.map(&:nickname)
+    ActionCable.server.broadcast 'user_status_channel', users: User.online
   end
 end

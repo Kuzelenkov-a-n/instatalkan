@@ -1,5 +1,6 @@
 class RoomsController < ApplicationController
   before_action :set_room, only: %i[show destroy]
+  before_action :set_users, only: %i[index show destroy]
 
   def index
     @rooms = Room.all
@@ -12,16 +13,16 @@ class RoomsController < ApplicationController
   def create
     @room = Room.create!(user_id: current_user.id)
 
-    redirect_to room_path(@room.token), notice: 'Room was successfully created.'
+    redirect_to room_path(@room.token), notice: 'Комната успешно создана!'
   end
 
   def destroy
     if @room.user_id == current_user.id
       @room.destroy
 
-      redirect_to root_path, notice: 'Room was successfully deleted.'
+      redirect_to root_path, notice: 'Вы успешно удалили комнату.'
     else
-      redirect_to root_path, notice: 'It is not your room!'
+      redirect_to root_path, notice: 'Это не Ваша комната!'
     end
   end
 
@@ -29,5 +30,9 @@ class RoomsController < ApplicationController
 
   def set_room
     @room = Room.find_by(token: params[:token])
+  end
+
+  def set_users
+    @users = User.online
   end
 end
