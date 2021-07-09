@@ -2,6 +2,7 @@ class User < ApplicationRecord
   before_create :generate_nickname
 
   has_many :rooms, dependent: :destroy
+  has_many :messages
 
   scope :online, -> { User.where(online: true) }
 
