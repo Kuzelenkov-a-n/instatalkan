@@ -15,21 +15,19 @@
     <div class="col-md-8">
       <%= yield %>
     </div>
-    <% if @users&.online %>
+    <% unless @current_user.present? %>
       <div class="col-md-8">
         <div class="card text-center mt-4 mb-4">
           <div class="card-body">
             <h1>Сейчас на сайте:</h1>
-            <div id="users-list">
-              <ul>
-                <% @users&.each do |user| %>
-                  <li>
-                    <%= image_tag 'green_dot.png', class: 'user-image', name: "#{user.nickname}-status" %>
-                    <%= user.nickname %>
-                  </li>
-                <% end %>
-              </ul>
-            </div>
+            <ul id="users-list">
+              <% @users&.each do |user| %>
+                <li user-id="<%= user.id %>">
+                  <%= image_tag 'green_dot.png', class: 'user-image' %>
+                  <%= user.nickname %>
+                </li>
+              <% end %>
+            </ul>
           </div>
         </div>
       </div>
