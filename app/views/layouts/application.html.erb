@@ -22,9 +22,8 @@
             <h1>Сейчас на сайте:</h1>
             <ul id="users-list">
               <% @users&.each do |user| %>
-                <li user-id="<%= user.id %>">
-                  <%= image_tag 'green_dot.png', class: 'user-image' %>
-                  <%= user.nickname %>
+                <li id="user_<%= user.id %>">
+                  ● <%= user.nickname %>
                 </li>
               <% end %>
             </ul>
