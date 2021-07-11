@@ -12,5 +12,7 @@
 
 <%= render 'messages/form' %>
 
-<%= link_to 'Удалить комнату', room_path(@room.token), class: 'button btn btn-warning',
-            method: :delete, data: { confirm: 'Вы уверены, что хотите удалить комнату?' } %>
+<% if current_user == @room.user %>
+  <%= link_to 'Удалить комнату', room_path(@room.token), class: 'button btn btn-warning',
+              method: :delete, data: { confirm: 'Вы уверены, что хотите удалить комнату?' } %>
+<% end %>
