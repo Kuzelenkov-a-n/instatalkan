@@ -8,10 +8,7 @@ class UserStatusChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    connection = ActionCable.server
-                            .connections
-                            .select { |c| c.current_user == current_user }
-                            .count
+    connection = ActionCable.server.connections.count
 
     return unless connection.zero?
 
