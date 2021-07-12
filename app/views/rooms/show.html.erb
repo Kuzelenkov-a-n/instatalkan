@@ -1,6 +1,6 @@
 <h1>Комната <%= @room.id %></h1>
 
-<%= link_to 'Выйти из комнаты', root_path %>
+<%= link_to "Выйти из комнаты", root_path %>
 
 <p id="notice"><%= notice %></p>
 
@@ -10,9 +10,9 @@
   </div>
 </div>
 
-<%= render 'messages/form' %>
+<%= render "messages/form" %>
 
 <% if current_user == @room.user %>
-  <%= link_to 'Удалить комнату', room_path(@room.token), class: 'button btn btn-warning',
-              method: :delete, data: { confirm: 'Вы уверены, что хотите удалить комнату?' } %>
+  <%= link_to "Удалить комнату", room_path(@room.token), class: "button btn btn-warning",
+              method: :delete, data: { confirm: "Вы уверены, что хотите удалить комнату?" } %>
 <% end %>

@@ -13,16 +13,16 @@ class RoomsController < ApplicationController
   def create
     @room = Room.create!(user_id: current_user.id)
 
-    redirect_to room_path(@room.token), notice: 'Комната успешно создана!'
+    redirect_to room_path(@room.token), notice: "Комната успешно создана!"
   end
 
   def destroy
     if @room.user_id == current_user.id
       @room.destroy
 
-      redirect_to root_path, notice: 'Вы успешно удалили комнату.'
+      redirect_to root_path, notice: "Вы успешно удалили комнату."
     else
-      redirect_to root_path, notice: 'Это не Ваша комната!'
+      redirect_to root_path, notice: "Это не Ваша комната!"
     end
   end
 

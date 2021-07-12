@@ -2,7 +2,7 @@ class UserStatusChannel < ApplicationCable::Channel
   def subscribed
     current_user.update(online: true)
 
-    stream_from 'user_status_channel'
+    stream_from "user_status_channel"
 
     online_users
   end
@@ -20,6 +20,6 @@ class UserStatusChannel < ApplicationCable::Channel
   private
 
   def online_users
-    ActionCable.server.broadcast 'user_status_channel', user: current_user
+    ActionCable.server.broadcast "user_status_channel", user: current_user
   end
 end
