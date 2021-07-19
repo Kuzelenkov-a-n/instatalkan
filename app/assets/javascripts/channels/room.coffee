@@ -18,6 +18,7 @@ createRoomChannel = (roomId) ->
 
     received: (data) ->
       $("#messages").append data["message"]
+      $("#messages, #message").last()[0].scrollIntoView()
 
     speak: (message) ->
       @perform "speak", message: message
