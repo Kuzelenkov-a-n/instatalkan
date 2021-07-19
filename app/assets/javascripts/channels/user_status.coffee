@@ -4,7 +4,7 @@ jQuery(document).on "turbolinks:load", ->
     received: (data) ->
       { id, online, nickname } = data.user
 
-      user_tag = $("#users-list").find("[id='user_#{id}']")
+      user_tag = $("#users-list").find("#user_#{id}")
 
       if (!online)
         user_tag.remove()
