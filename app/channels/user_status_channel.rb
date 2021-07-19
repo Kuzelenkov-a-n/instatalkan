@@ -1,25 +1,11 @@
 class UserStatusChannel < ApplicationCable::Channel
   def subscribed
-    current_user.update(online: true)
-
     stream_from "user_status_channel"
 
-    online_users
+    UserStatusService.make_online(current_user)
   end
 
   def unsubscribed
-    connection = ActionCable.server.connections.count
-
-    return unless connection.zero?
-
-    current_user.update(online: false)
-
-    online_users
-  end
-
-  private
-
-  def online_users
-    ActionCable.server.broadcast "user_status_channel", user: current_user
+    UserStatusService.make_offline(current_user)
   end
 end
