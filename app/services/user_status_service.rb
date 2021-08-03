@@ -1,25 +1,29 @@
 module UserStatusService
-  def self.make_online(current_user)
-    current_user.update(online: true)
+  class << self
+    attr_reader :current_user
 
-    send_to_channel(current_user)
-  end
+    def make_online(current_user)
+      @current_user = current_user
 
-  def self.make_offline(current_user)
-    return unless connection_count(current_user).zero?
+      broadcast if current_user.update(online: true)
+    end
 
-    current_user.update(online: false)
+    def make_offline(current_user)
+      @current_user = current_user
 
-    send_to_channel(current_user)
-  end
+      return unless connections_count.zero?
 
-  def self.connection_count(current_user)
-    ActionCable.server
-               .connections
-               .count { |c| c.current_user == current_user }
-  end
+      broadcast if current_user.update(online: false)
+    end
 
-  def self.send_to_channel(current_user)
-    ActionCable.server.broadcast "user_status_channel", user: current_user
+    private
+
+    def connections_count
+      ActionCable.server.connections.count { |c| c.current_user == current_user }
+    end
+
+    def broadcast
+      ActionCable.server.broadcast "user_status_channel", user: current_user
+    end
   end
 end

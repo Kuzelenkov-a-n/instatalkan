@@ -4,7 +4,7 @@ class RoomChannel < ApplicationCable::Channel
 
     stream_from "room_channel_#{@room.id}"
 
-    return unless UserStatusService.connection_count(current_user) == 1
+    return unless users_connections.count == 1
 
     logger.info "Subscribed to RoomChannel, roomId: #{params[:roomId]}"
 
@@ -12,7 +12,7 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    return unless UserStatusService.connection_count(current_user).zero?
+    return if users_connections.include?("#{@room.id}")
 
     logger.info "Unsubscribed to RoomChannel"
 
@@ -25,5 +25,11 @@ class RoomChannel < ApplicationCable::Channel
     MessageService.new(
       body: data["message"], room: @room, user: current_user
     ).perform
+  end
+
+  def users_connections
+    ActionCable.server.connections.filter_map do |c|
+      c.subscriptions.identifiers.to_s.match(/#{@room.id}/).to_s if c.current_user == current_user
+    end
   end
 end
