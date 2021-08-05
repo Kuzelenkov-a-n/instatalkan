@@ -1,4 +1,6 @@
 class MessageService
+  attr_reader :body, :user, :room, :message
+
   def initialize(body:, user:, room:)
     @body = body
     @user = user
@@ -13,15 +15,15 @@ class MessageService
   private
 
   def create_message!
-    @message ||= Message.create! body: @body, room: @room, user: @user
+    @message ||= Message.create! body: body, room: room, user: user
   end
 
   def broadcast_message
-    ActionCable.server.broadcast "room_channel_#{@room.id}", message: render_message
+    ActionCable.server.broadcast "room_channel_#{room.id}", message: render_message
   end
 
   def render_message
     ApplicationController.renderer.render(partial: "messages/message",
-                                          locals: { message: @message })
+                                          locals: { message: message })
   end
 end
