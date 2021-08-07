@@ -1,14 +1,10 @@
 class RoomChannel < ApplicationCable::Channel
-  attr_reader :room, :room_service
-
   def subscribed
     @room = Room.find(params[:roomId])
 
-    stream_from "room_channel_#{room.id}"
+    stream_from "room_channel_#{@room.id}"
 
-    @room_service = RoomService.new("#{room.id}", current_user)
-
-    return unless room_service.current_room_id_count == 1
+    return unless RoomConnectionsChecker.connected?(@room.id, current_user, :subscribed)
 
     logger.info "Subscribed to RoomChannel, roomId: #{params[:roomId]}"
 
@@ -16,7 +12,7 @@ class RoomChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    return if room_service.users_connections.include?("#{room.id}")
+    return if RoomConnectionsChecker.connected?(@room.id, current_user, :unsubscribed)
 
     logger.info "Unsubscribed to RoomChannel"
 
@@ -27,7 +23,7 @@ class RoomChannel < ApplicationCable::Channel
     logger.info "RoomChannel, speak: #{data.inspect}"
 
     MessageService.new(
-      body: data["message"], room: room, user: current_user
+      body: data["message"], room: @room, user: current_user
     ).perform
   end
 end
