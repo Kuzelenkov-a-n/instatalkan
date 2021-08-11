@@ -1,24 +1,59 @@
-# README
+## Приложение "Instatalk" (RoR)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+<a href="https://instatalkan.herokuapp.com/">Instatalk</a> (Heroku)
 
-Things you may want to cover:
+![instatalk](https://user-images.githubusercontent.com/77342692/129066236-49d97e84-3b1d-4cd1-920b-6f3121c35a56.png)
 
-* Ruby version
+Приложение-чат для общения онлайн.
 
-* System dependencies
+## Основные функции приложения:
 
-* Configuration
+- Автоматическое создание пользователя при входе на сайт (с возможностью удаления)
+  
+- Создание и удаление своих "чат-комнат"
+  
+- Возможность подключения к "чат-комнатам" других пользователей
+  
+- Визуализация присутствия пользователя на сайте и в "чат-комнате"
 
-* Database creation
+## Основные библиотеки и технологии:
 
-* Database initialization
+### Backend:
 
-* How to run the test suite
+1. ```Ruby 2.7.2``` + ```Rails 5.1.4```
 
-* Services (job queues, cache servers, search engines, etc.)
+2. Базы данных:
+    - ```redis``` (ActionCable - production)
+    - ```postgresql```(production)
+    - ```sqlite3``` (development)
+    
+### Frontend:
 
-* Deployment instructions
+1. CSS-фреймворк:
+    - ```Bootstrap 4.0.0.beta```
 
-* ...
+---
+## Для запуска программы:
+
+1. Скачайте все файлы из репозитория или склонируйте его
+
+2. Установите необходимые зависимости:
+```
+$ bundle install
+```
+
+3. Прогоните миграции БД:
+
+```
+$ bundle exec rails db:migrate
+```
+
+4. Запуск в **development** окружении:
+
+```
+$ bundle exec rails s
+```
+приложение будет доступно по адресу: http://localhost:3000/
+
+---
+*Автор приложения: Кузеленков Андрей (в рамках прохождения интенсива "Хороший программист")*
